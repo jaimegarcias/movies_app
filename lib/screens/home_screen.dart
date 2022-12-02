@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/providers/movies_provider.dart';
 import 'package:movies_app/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final moviesProvider = Provider.of<MoviesProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cartellera'),
@@ -17,10 +21,10 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               // Targetes principals
-              CardSwiper(),
+              CardSwiper(movies: moviesProvider.onDisplayMovies),
 
               // Slider de pel·licules
-              MovieSlider(),
+              MovieSlider(movies: moviesProvider.popular),
               // Poodeu fer la prova d'afegir-ne uns quants, veureu com cada llista és independent
               // MovieSlider(),
               // MovieSlider(),

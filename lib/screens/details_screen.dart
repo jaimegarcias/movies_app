@@ -5,7 +5,7 @@ import 'package:movies_app/widgets/widgets.dart';
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: Canviar després per una instància de Peli
+    // Rebem la peli dels paràmetres de la ruta
     final Movie peli = ModalRoute.of(context)?.settings.arguments as Movie;
 
     return Scaffold(
@@ -16,6 +16,7 @@ class DetailsScreen extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
+              //Enviam la peli als altres components per que hi puguin accedir a les seves dades
               [
                 _PosterAndTitile(
                   movie: peli,
@@ -26,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
                 _Overview(
                   movie: peli,
                 ),
-                CastingCards(),
+                CastingCards(peli.id),
               ],
             ),
           ),

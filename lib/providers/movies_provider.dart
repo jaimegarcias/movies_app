@@ -14,6 +14,8 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovies = [];
   List<Movie> popular = [];
 
+  Map<int, List<Cast>> casting = {};
+
   MoviesProvider() {
     this.getOnDisplayMovies();
     this.getPopularMovies();
@@ -47,5 +49,21 @@ class MoviesProvider extends ChangeNotifier {
     final popularResponse = PopularResponse.fromJson(result.body);
     popular = popularResponse.results;
     notifyListeners();
+  }
+
+  Future<List<Cast>> getMovieCast(int idMovie) async {
+    var url = Uri.https(_baseUrl, '/3/movie/$idMovie/credits', {
+      'api_key': _apikey,
+      'language': _language,
+    });
+
+    // Await the http get response, then decode the json-formatted response.
+    final result = await http.get(url);
+
+    final creditsResponse = CreditsResponse.fromJson(result.body);
+
+    casting[idMovie] = creditsResponse.cast;
+
+    return creditsResponse.cast;
   }
 }

@@ -10,7 +10,7 @@ class CardSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    //Controlam que la llista de pelis no sigui buida
     if (this.movies.length == 0) {
       return Container(
         width: double.infinity,
@@ -32,6 +32,7 @@ class CardSwiper extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final movie = movies[index];
             return GestureDetector(
+              //Obrim la pàgina de detalls quan l'usuari clica en una peli en concret
               onTap: () => Navigator.pushNamed(context, 'details',
                   arguments: movies[index]),
               child: ClipRRect(
